@@ -21,7 +21,7 @@ Route::get('/', function () {
     return view('login');
 })->name('login');
 
-Route::view('/task', 'task'); // Ruta para mostrar la vista sin middleware
+Route::view('/task', 'task');
 
 Route::get('/{any}', function () {
     return response()->json(['error' => 'Ruta no encontrada'], 404);

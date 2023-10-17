@@ -42,7 +42,10 @@ $(document).ready(function() {
         },
         ajax: {
             url: 'api/tasks',
-            dataSrc: ''
+            dataSrc: '',
+            headers: {
+                'Authorization': 'Bearer ' + userData.token
+            }
         },
         columns: [
             { 
@@ -112,6 +115,9 @@ $(document).ready(function() {
             $.ajax({
                 url: 'api/tasks/' + taskId,
                 method: 'DELETE',
+                headers: {
+                    'Authorization': 'Bearer ' + userData.token
+                },
                 success: function(response) {
                     table.ajax.reload(); 
                     mostrarAlerta('La tarea ' + response.task.title.toUpperCase() + ' se ha eliminado correctamente.', 'success');
@@ -144,6 +150,9 @@ $(document).ready(function() {
             $.ajax({
                 url: 'api/tasks/' + taskId,
                 method: 'PUT',
+                headers: {
+                    'Authorization': 'Bearer ' + userData.token
+                },
                 contentType: 'application/json',
                 data: JSON.stringify(updatedData),
                 success: function(response) {
@@ -198,6 +207,9 @@ $(document).ready(function() {
             $.ajax({
                 url: urls,
                 method: methods,
+                headers: {
+                    'Authorization': 'Bearer ' + userData.token
+                },
                 contentType: 'application/json',
                 data: JSON.stringify(updatedData),
                 success: function(response) {

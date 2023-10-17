@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TaskController;
 
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -16,15 +17,16 @@ use App\Http\Controllers\TaskController;
 |
 */
 
-
 // Rutas del inicio de sesion
 Route::post('login', [AuthController::class, 'login']);
 
-// Rutas para las tareas
-Route::get('tasks', [TaskController::class, 'index']);
-Route::post('/tasks', [TaskController::class, 'store']);
-Route::put('/tasks/{id}', [TaskController::class, 'update']);
-Route::delete('/tasks/{id}', [TaskController::class, 'destroy']);
 
+// Rutas para las tareas protegidas por autenticación JWT
+Route::middleware('jwt.auth')->group(function () {
+    Route::get('tasks', [TaskController::class, 'index']);
+    Route::post('/tasks', [TaskController::class, 'store']);
+    Route::put('/tasks/{id}', [TaskController::class, 'update']);
+    Route::delete('/tasks/{id}', [TaskController::class, 'destroy']);
+});
 
 
